@@ -1,0 +1,785 @@
+Hardware requirements
+[root@dc-satellite-srv ~]# lsblk
+NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   700G  0 disk
+├─sda1          8:1    0   953M  0 part /boot/efi
+├─sda2          8:2    0   953M  0 part /boot
+└─sda3          8:3    0 698.1G  0 part
+  ├─rhel-root 253:0    0  46.6G  0 lvm  /
+  ├─rhel-swap 253:1    0   3.7G  0 lvm  [SWAP]
+  ├─rhel-data 253:2    0  93.1G  0 lvm  /data
+  ├─rhel-var  253:3    0 465.7G  0 lvm  /var
+  └─rhel-home 253:4    0    89G  0 lvm  /home
+sr0            11:0    1  12.6G  0 rom  /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+
+
+
+[root@dc-capsule-srv-03 ~]# df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               5.7G     0  5.7G   0% /dev
+tmpfs                  5.8G     0  5.8G   0% /dev/shm
+tmpfs                  5.8G  9.7M  5.7G   1% /run
+tmpfs                  5.8G     0  5.8G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root   47G  5.1G   42G  11% /
+/dev/mapper/rhel-data   94G  697M   93G   1% /data
+/dev/sda2              947M  267M  681M  29% /boot
+/dev/sda1              952M  5.8M  946M   1% /boot/efi
+/dev/mapper/rhel-home   89G  681M   89G   1% /home
+/dev/mapper/rhel-var   466G  3.5G  462G   1% /var
+tmpfs                  1.2G   40K  1.2G   1% /run/user/1000
+/dev/sr0                13G   13G     0 100% /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+
+
+
+[root@dc-satellite-srv ~]#  lsmem
+RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+0x0000000100000000-0x000000053fffffff  17G online       yes 32-167
+
+Memory block size:       128M
+Total online memory:      20G
+Total offline memory:      0B
+
+
+[root@dc-satellite-srv ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  1
+Core(s) per socket:  2
+Socket(s):           2
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+Stepping:            4
+CPU MHz:             2095.077
+BogoMIPS:            4190.15
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            30976K
+NUMA node0 CPU(s):   0-3
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat pku ospke md_clear flush_l1d arch_capabilities
+[root@dc-satellite-srv ~]#
+[root@dc-satellite-srv ~]# cat /etc/os-release
+NAME="Red Hat Enterprise Linux"
+VERSION="8.9 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.9"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.9 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+HOME_URL="https://www.redhat.com/"
+DOCUMENTATION_URL="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.9"
+[root@dc-satellite-srv ~]#
+
+===============================================================================================================
+===============================================================================================================
+===============================================================================================================
+
+
+[root@dc-satellite-proxy ~]# lsblk
+NAME          MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   60G  0 disk
+├─sda1          8:1    0  600M  0 part /boot/efi
+├─sda2          8:2    0    1G  0 part /boot
+└─sda3          8:3    0 58.4G  0 part
+  ├─rhel-root 253:0    0 36.6G  0 lvm  /
+  ├─rhel-swap 253:1    0  3.9G  0 lvm  [SWAP]
+  └─rhel-home 253:2    0 17.9G  0 lvm  /home
+sr0            11:0    1 12.6G  0 rom
+[root@dc-satellite-proxy ~]#
+[root@dc-satellite-proxy ~]#
+[root@dc-satellite-proxy ~]# lsmem
+RANGE                                 SIZE  STATE REMOVABLE BLOCK
+0x0000000000000000-0x00000000bfffffff   3G online       yes  0-23
+0x0000000100000000-0x000000013fffffff   1G online       yes 32-39
+
+Memory block size:       128M
+Total online memory:       4G
+Total offline memory:      0B
+[root@dc-satellite-proxy ~]#
+[root@dc-satellite-proxy ~]#
+[root@dc-satellite-proxy ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  1
+Core(s) per socket:  2
+Socket(s):           2
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+Stepping:            4
+CPU MHz:             2095.077
+BogoMIPS:            4190.15
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            30976K
+NUMA node0 CPU(s):   0-3
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat pku ospke md_clear flush_l1d arch_capabilities
+[root@dc-satellite-proxy ~]#
+[root@dc-satellite-proxy ~]# cat /etc/os-release
+NAME="Red Hat Enterprise Linux"
+VERSION="8.9 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.9"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.9 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+HOME_URL="https://www.redhat.com/"
+DOCUMENTATION_URL="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.9"
+[root@dc-satellite-proxy ~]#
+
+
+
+===============================================================================================================
+===============================================================================================================
+===============================================================================================================
+[root@dc-capsule-srv-01 ~]#lsblk
+NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   700G  0 disk
+├─sda1          8:1    0   953M  0 part /boot/efi
+├─sda2          8:2    0   953M  0 part /boot
+└─sda3          8:3    0 698.1G  0 part
+  ├─rhel-root 253:0    0  46.6G  0 lvm  /
+  ├─rhel-swap 253:1    0   3.7G  0 lvm  [SWAP]
+  ├─rhel-data 253:2    0  93.1G  0 lvm  /data
+  ├─rhel-var  253:3    0 465.7G  0 lvm  /var
+  └─rhel-home 253:4    0    89G  0 lvm  /home
+sr0            11:0    1  12.6G  0 rom  /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]# df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               5.7G     0  5.7G   0% /dev
+tmpfs                  5.8G     0  5.8G   0% /dev/shm
+tmpfs                  5.8G  9.7M  5.7G   1% /run
+tmpfs                  5.8G     0  5.8G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root   47G  5.1G   42G  11% /
+/dev/mapper/rhel-data   94G  697M   93G   1% /data
+/dev/mapper/rhel-home   89G  681M   89G   1% /home
+/dev/sda2              947M  267M  681M  29% /boot
+/dev/mapper/rhel-var   466G  3.5G  462G   1% /var
+/dev/sda1              952M  5.8M  946M   1% /boot/efi
+tmpfs                  1.2G   52K  1.2G   1% /run/user/1000
+/dev/sr0                13G   13G     0 100% /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]# lsmem
+RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+0x0000000100000000-0x000000033fffffff   9G online       yes 32-103
+
+Memory block size:       128M
+Total online memory:      12G
+Total offline memory:      0B
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  1
+Core(s) per socket:  2
+Socket(s):           2
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+Stepping:            4
+CPU MHz:             2095.077
+BogoMIPS:            4190.15
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            30976K
+NUMA node0 CPU(s):   0-3
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat pku ospke md_clear flush_l1d arch_capabilities
+[root@dc-capsule-srv-01 ~]#
+[root@dc-capsule-srv-01 ~]# cat /etc/os-release
+NAME="Red Hat Enterprise Linux"
+VERSION="8.9 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.9"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.9 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+HOME_URL="https://www.redhat.com/"
+DOCUMENTATION_URL="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.9"
+[root@dc-capsule-srv-01 ~]#
+
+
+
+
+
+===============================================================================================================
+===============================================================================================================
+===============================================================================================================
+[root@dc-capsule-srv-02 ~]# lsblk
+NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   700G  0 disk
+├─sda1          8:1    0   953M  0 part /boot/efi
+├─sda2          8:2    0   953M  0 part /boot
+└─sda3          8:3    0 698.1G  0 part
+  ├─rhel-root 253:0    0  46.6G  0 lvm  /
+  ├─rhel-swap 253:1    0   3.7G  0 lvm  [SWAP]
+  ├─rhel-data 253:2    0  93.1G  0 lvm  /data
+  ├─rhel-var  253:3    0 465.7G  0 lvm  /var
+  └─rhel-home 253:4    0    89G  0 lvm  /home
+sr0            11:0    1  12.6G  0 rom  /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]# df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               5.7G     0  5.7G   0% /dev
+tmpfs                  5.8G     0  5.8G   0% /dev/shm
+tmpfs                  5.8G  9.7M  5.7G   1% /run
+tmpfs                  5.8G     0  5.8G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root   47G  5.1G   42G  11% /
+/dev/sda2              947M  267M  681M  29% /boot
+/dev/mapper/rhel-data   94G  697M   93G   1% /data
+/dev/sda1              952M  5.8M  946M   1% /boot/efi
+/dev/mapper/rhel-var   466G  3.5G  462G   1% /var
+/dev/mapper/rhel-home   89G  681M   89G   1% /home
+tmpfs                  1.2G   44K  1.2G   1% /run/user/1000
+/dev/sr0                13G   13G     0 100% /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]# lsmem
+RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+0x0000000100000000-0x000000033fffffff   9G online       yes 32-103
+
+Memory block size:       128M
+Total online memory:      12G
+Total offline memory:      0B
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  1
+Core(s) per socket:  2
+Socket(s):           2
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 6230 CPU @ 2.10GHz
+Stepping:            7
+CPU MHz:             2095.077
+BogoMIPS:            4190.15
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            28160K
+NUMA node0 CPU(s):   0-3
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+[root@dc-capsule-srv-02 ~]#
+[root@dc-capsule-srv-02 ~]# cat /etc/os-release
+NAME="Red Hat Enterprise Linux"
+VERSION="8.9 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.9"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.9 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+HOME_URL="https://www.redhat.com/"
+DOCUMENTATION_URL="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.9"
+[root@dc-capsule-srv-02 ~]#
+
+
+
+
+
+===============================================================================================================
+===============================================================================================================
+===============================================================================================================
+[root@dc-capsule-srv-03 ~]# lsblk
+NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda             8:0    0   700G  0 disk
+├─sda1          8:1    0   953M  0 part /boot/efi
+├─sda2          8:2    0   953M  0 part /boot
+└─sda3          8:3    0 698.1G  0 part
+  ├─rhel-root 253:0    0  46.6G  0 lvm  /
+  ├─rhel-swap 253:1    0   3.7G  0 lvm  [SWAP]
+  ├─rhel-data 253:2    0  93.1G  0 lvm  /data
+  ├─rhel-var  253:3    0 465.7G  0 lvm  /var
+  └─rhel-home 253:4    0    89G  0 lvm  /home
+sr0            11:0    1  12.6G  0 rom  /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]# df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               5.7G     0  5.7G   0% /dev
+tmpfs                  5.8G     0  5.8G   0% /dev/shm
+tmpfs                  5.8G  9.7M  5.7G   1% /run
+tmpfs                  5.8G     0  5.8G   0% /sys/fs/cgroup
+/dev/mapper/rhel-root   47G  5.1G   42G  11% /
+/dev/mapper/rhel-data   94G  697M   93G   1% /data
+/dev/sda2              947M  267M  681M  29% /boot
+/dev/sda1              952M  5.8M  946M   1% /boot/efi
+/dev/mapper/rhel-home   89G  681M   89G   1% /home
+/dev/mapper/rhel-var   466G  3.5G  462G   1% /var
+tmpfs                  1.2G   40K  1.2G   1% /run/user/1000
+/dev/sr0                13G   13G     0 100% /run/media/syssrv/RHEL-8-9-0-BaseOS-x86_64
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]# lsmem
+RANGE                                 SIZE  STATE REMOVABLE  BLOCK
+0x0000000000000000-0x00000000bfffffff   3G online       yes   0-23
+0x0000000100000000-0x000000033fffffff   9G online       yes 32-103
+
+Memory block size:       128M
+Total online memory:      12G
+Total offline memory:      0B
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  1
+Core(s) per socket:  2
+Socket(s):           2
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 6152 CPU @ 2.10GHz
+Stepping:            4
+CPU MHz:             2095.077
+BogoMIPS:            4190.15
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            30976K
+NUMA node0 CPU(s):   0-3
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat pku ospke md_clear flush_l1d arch_capabilities
+[root@dc-capsule-srv-03 ~]#
+[root@dc-capsule-srv-03 ~]# cat /etc/os-release
+NAME="Red Hat Enterprise Linux"
+VERSION="8.9 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.9"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.9 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+HOME_URL="https://www.redhat.com/"
+DOCUMENTATION_URL="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.9"
+[root@dc-capsule-srv-03 ~]#
+
+=================================================================================================================================
+=================================================================================================================================
+
+Remode Desktop
+10.0.83.135	satellite Ptner@2023!@#
+
+10.0.63.10 dc-satellite-srv		satellite Ptner@2023!@#
+10.0.63.15 dc-satellite-proxy	satellite Ptner@2023!@#
+10.0.63.20 dc-capsule-srv-01	satellite Ptner@2023!@#
+10.0.63.21 dc-capsule-srv-02	satellite Ptner@2023!@#
+10.0.63.22 dc-capsule-srv-03	satellite Ptner@2023!@#
+
+10.0.63.10 		dc-satellite-srv.shbfinance.com.vn 		dc-satellite-srv
+10.0.63.15 		dc-satellite-proxy.shbfinance.com.vn 	dc-satellite-proxy
+10.0.63.20 		dc-capsule-srv-01.shbfinance.com.vn 	dc-capsule-srv-01
+10.0.63.21 		dc-capsule-srv-02.shbfinance.com.vn 	dc-capsule-srv-02
+10.0.63.22 		dc-capsule-srv-03.shbfinance.com.vn 	dc-capsule-srv-03
+
+
+
+change user to root: sudo su -
+enter pass user: Ptner@2023!@#
+
+
+=================================================================================================================================
+=================================================================================================================================
+SETUP Capsule
+
+---> On Satellite <---
+firewall-cmd --add-port="5646/tcp"
+firewall-cmd --runtime-to-permanent
+firewall-cmd --list-all
+
+
+---> On capsule <---
+
+firewall-cmd \
+--add-port="53/udp" --add-port="53/tcp" \
+--add-port="67/udp" \
+--add-port="69/udp" \
+--add-port="80/tcp" --add-port="443/tcp" \
+--add-port="5647/tcp" \
+--add-port="8140/tcp" \
+--add-port="8443/tcp" \
+--add-port="8000/tcp" --add-port="9090/tcp"
+
+firewall-cmd --runtime-to-permanent
+firewall-cmd --list-all
+
+2.1. Registering to Satellite Server
+Procedure
+
+In the Satellite web UI, navigate to Hosts > Register Host.
+From the Activation Keys list, select the activation keys to assign to your host.
+Click Generate to create the registration command.
+Click on the files icon to copy the command to your clipboard.
+Connect to your host using SSH and run the registration command.
+Check the /etc/yum.repos.d/redhat.repo file and ensure that the appropriate repositories have been enabled.
+
+2.2. Attaching the Satellite Infrastructure Subscription
+
+subscription-manager repos --disable "*"
+
+subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms \
+--enable=rhel-8-for-x86_64-appstream-rpms \
+--enable=satellite-capsule-6.13-for-rhel-8-x86_64-rpms \
+--enable=satellite-maintenance-6.13-for-rhel-8-x86_64-rpms
+
+dnf module enable satellite-capsule:el8 -y
+dnf repolist enabled
+
+2.4. Installing Capsule Server Packages
+yum update -y 
+dnf install satellite-capsule -y 
+
+2.5. Synchronizing the System Clock With chronyd
+dnf install chrony -y 
+systemctl enable --now chronyd
+
+
+2.6. Configuring Capsule Server with SSL Certificates
+
+---> On Satellite <---
+mkdir /root/capsule_cert
+
+
+Site 1, 2 and 3
+Capsule 1 - dc-capsule-srv-01
+capsule-certs-generate \
+--foreman-proxy-fqdn dc-capsule-srv-01.shbfinance.com.vn \
+--certs-tar "/root/capsule_cert/dc-capsule-srv-01.shbfinance.com.vn-certs.tar" \
+--foreman-proxy-cname dc-satellite-proxy.shbfinance.com.vn #additional (with loadbalancer)
+
+scp /root/capsule_cert/dc-capsule-srv-01.shbfinance.com.vn-certs.tar root@dc-capsule-srv-01.shbfinance.com.vn:/root/dc-capsule-srv-01.shbfinance.com.vn-certs.tar
+
+
+
+Capsule 2 - dc-capsule-srv-02
+capsule-certs-generate \
+--foreman-proxy-fqdn dc-capsule-srv-02.shbfinance.com.vn \
+--certs-tar "/root/capsule_cert/dc-capsule-srv-02.shbfinance.com.vn-certs.tar" \
+--foreman-proxy-cname dc-satellite-proxy.shbfinance.com.vn #additional (with loadbalancer)
+
+scp /root/capsule1.lab-certs.tar root@capsule1.lab:/root/capsule1.lab-certs.tar
+
+Site 4 and 5
+Capsule 3 - dc-capsule-srv-03
+capsule-certs-generate \
+--foreman-proxy-fqdn dc-capsule-srv-03.shbfinance.com.vn \
+--certs-tar /root/capsule_cert/dc-capsule-srv-03.shbfinance.com.vn-certs.tar
+
+
+
+---> On capsule <---
+
+Site 1, 2 and 3
+Capsule 1 - dc-capsule-srv-01
+
+em
+
+Capsule 2 - dc-capsule-srv-02
+
+satellite-installer --scenario capsule \
+--certs-tar-file "/root/dc-capsule-srv-02.shbfinance.com.vn-certs.tar" \
+--foreman-proxy-register-in-foreman "true" \
+--foreman-proxy-foreman-base-url "https://dc-satellite-srv.shbfinance.com.vn" \
+--foreman-proxy-oauth-consumer-key "pExwM8Q7p23kqKnpEE5A3LmdEY8FjRuJ" \
+--foreman-proxy-oauth-consumer-secret "wyDBHZYRtucweaXTpW2CJ8pPnjgfNrRd" \
+--certs-cname "dc-satellite-proxy.shbfinance.com.vn" \
+--enable-foreman-proxy-plugin-remote-execution-script \
+--foreman-proxy-trusted-hosts "dc-satellite-srv.shbfinance.com.vn" \
+--foreman-proxy-trusted-hosts "dc-capsule-srv-02.shbfinance.com.vn"
+
+
+
+Site 4 and 5
+Capsule 3 - dc-capsule-srv-03
+
+satellite-installer --scenario capsule \
+--certs-tar-file "/root/dc-capsule-srv-03.shbfinance.com.vn-certs.tar" \
+--foreman-proxy-register-in-foreman "true" \
+--foreman-proxy-foreman-base-url "https://dc-satellite-srv.shbfinance.com.vn" \
+--foreman-proxy-trusted-hosts "dc-satellite-srv.shbfinance.com.vn" \
+--foreman-proxy-trusted-hosts "dc-capsule-srv-03.shbfinance.com.vn" \
+--foreman-proxy-oauth-consumer-key "pExwM8Q7p23kqKnpEE5A3LmdEY8FjRuJ" \
+--foreman-proxy-oauth-consumer-secret "wyDBHZYRtucweaXTpW2CJ8pPnjgfNrRd"
+
+--> On All Capsule in HAproxy <--
+Chapter 5. Setting the Load Balancer for Host Registration
+satellite-installer --scenario capsule \
+--foreman-proxy-registration true \
+--foreman-proxy-templates true
+
+satellite-installer --scenario capsule \
+--foreman-proxy-registration-url "https://dc-satellite-proxy.shbfinance.com.vn:9090" \
+--foreman-proxy-template-url "https://dc-satellite-proxy.shbfinance.com.vn:8000"
+
+
+===================================================================================
+HAproxy:
+
+Service															Port	Mode	Balance Mode	Destination
+HTTP															80		TCP		roundrobin		port 80 on all Capsule Servers
+HTTPS and RHSM													443		TCP		source			port 443 on all Capsule Servers
+AMQP															5647	TCP		roundrobin		port 5647 on all Capsule Servers
+Anaconda for template retrieval									8000	TCP		roundrobin		port 8000 on all Capsule Servers
+Puppet (Optional)												8140	TCP		roundrobin		port 8140 on all Capsule Servers
+PuppetCA (Optional)												8141	TCP		roundrobin 		port 8140 only on the system where you configure Capsule Server to sign Puppet certificates
+Capsule HTTPS for Host Registration and optionally OpenSCAP		9090	TCP		roundrobin 		port 9090 on all Capsule Servers
+
+firewall-cmd \
+--add-port="80/tcp" \
+--add-port="443/tcp" \
+--add-port="5647/tcp" \
+--add-port="8000/tcp" \
+--add-port="8140/tcp" \
+--add-port="8141/tcp" \
+--add-port="9090/tcp" 
+
+firewall-cmd --runtime-to-permanent
+firewall-cmd --list-all
+
+
+dnf install haproxy -y 
+dnf install policycoreutils-python-utils -y 
+semanage boolean --modify --on haproxy_connect_any
+
+/etc/haproxy/haproxy.conf
+
+global
+    log /dev/log  local0
+    log /dev/log  local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode tcp
+    option tcplog
+    option dontlognull
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
+
+frontend stats
+    mode http
+    bind *:8080
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats admin if LOCALHOST
+
+
+#https
+frontend https
+   bind *:443
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-https
+
+backend f-proxy-https
+   option tcp-check
+   balance source     
+   mode tcp
+   server f-proxy-https-1  capsule1.amigo.lab:443 check
+   server f-proxy-https-2  capsule2.amigo.lab:443 check
+
+
+#puppet-ca
+frontend puppet-ca
+   bind *:8141
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-puppet-ca
+
+backend f-proxy-puppet-ca
+   option tcp-check
+   mode tcp
+   balance roundrobin
+   server f-proxy-puppet-ca-1  capsule1.amigo.lab:8140 check
+	
+	
+#http
+frontend http
+   bind *:80
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-http
+
+backend f-proxy-http
+   option tcp-check
+   mode tcp
+   balance roundrobin
+   server f-proxy-http-1  capsule1.amigo.lab:80 check
+   server f-proxy-http-2 capsule2.amigo.lab:80 check
+	
+	
+#amqp
+frontend amqp
+   bind *:5647
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-amqp
+
+backend f-proxy-amqp
+   option tcp-check
+   mode tcp	
+   balance roundrobin
+   server f-proxy-amqp-1  capsule1.amigo.lab:80 check
+   server f-proxy-amqp-2 capsule2.amigo.lab:80 check
+	
+	
+#anaconda
+frontend anaconda
+   bind *:8000
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-anaconda
+
+backend f-proxy-anaconda
+   option tcp-check
+   mode tcp
+   balance roundrobin
+   server f-proxy-anaconda-1  capsule1.amigo.lab:80 check
+   server f-proxy-anaconda-2 capsule2.amigo.lab:80 check
+
+
+#
+frontend puppet
+   bind *:8140
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-puppet
+
+backend f-proxy-puppet
+   option tcp-check
+   mode tcp
+   balance roundrobin
+   server f-proxy-puppet-1  capsule1.amigo.lab:8140 check
+   server f-proxy-puppet-2 capsule2.amigo.lab:8140 check
+
+
+#capsule-https
+frontend capsule-https
+   bind *:9090
+   mode tcp
+   option               tcplog
+   default_backend f-proxy-capsule-https
+
+backend f-proxy-capsule-https
+   option tcp-check
+   mode tcp
+   balance roundrobin
+   server f-proxy-capsule-https-1  capsule1.amigo.lab:9090 check
+   server f-proxy-capsule-https-2 capsule2.amigo.lab:9090 check
+	
+
+
+systemctl enable --now haproxy
+
+
+ SELinux is preventing /usr/sbin/haproxy from using the dac_override capability. For complete SELinux messages run: sealert -l b66010d7-e036-4dab-94fa-a746fc2fb41f
+Jan 11 17:12:13 dc-satellite-proxy setroubleshoot[99970]: SELinux is preventing /usr/sbin/haproxy from using the dac_override capability.
